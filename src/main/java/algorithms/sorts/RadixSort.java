@@ -3,24 +3,51 @@ package algorithms.sorts;
 import java.util.Arrays;
 
 public class RadixSort {
-    public static int[] perform(int[] source) {
-        int[] result = Arrays.copyOf(source, source.length);
 
+    public static int[] perform(int[] source, int radix) {
         int width = 0;
         for (int i = 1; i < Integer.MAX_VALUE; i *= 10) {
-            if (((int) (source[0] / i)) > 0) width = i;
+            if (((int) (source[0] / i)) > 0) width++;
             else break;
         }
+        return perform(source, radix, width);
+    }
 
-        for (; width > 0; width = (int) (width / 10)) {
-            int[] howToSortArray = new int[result.length];
-            for (int i = 0; i < howToSortArray.length; i++) {
-                howToSortArray[i] = (int) (result[i] / width);
-            }
-            // sort
+    public static int[] perform(int[] source, int radix, int width) {
+        int[] result = Arrays.copyOf(source, source.length);
+        for (int i = 0; i < width; i++) {
+            radixSingleSort(result, i, radix);
+        }
+        return result;
+    }
 
+    private static int[] radixSingleSort(int[] result, int position, int radix) {
+
+        int numItems = result.length;
+        int[] countArray = new int[radix];
+
+        for (int value : result) {
+            countArray[getDigit(position, value, radix)]++;
+        }
+        // Adjust the count array
+        for (int j = 1; j < radix; j++) {
+            countArray[j] += countArray[j - 1];
+        }
+
+        int[] temp = new int[numItems];
+        for (int tempIndex = numItems - 1; tempIndex >= 0; tempIndex--) {
+            temp[--countArray[getDigit(position, result[tempIndex], radix)]] = result[tempIndex];
+        }
+
+        for (int tempIndex = 0; tempIndex < numItems; tempIndex++) {
+            result[tempIndex] = temp[tempIndex];
         }
 
         return result;
     }
+
+    private static int getDigit(int position, int value, int radix) {
+        return value / (int) Math.pow(radix, position) % radix;
+    }
+
 }
