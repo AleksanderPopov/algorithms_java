@@ -6,12 +6,6 @@ public class StackLinkedList<T> implements Stack<T> {
     public StackLinkedList() {
     }
 
-    public StackLinkedList(T[] items) {
-        for (T item : items) {
-            this.push(item);
-        }
-    }
-
     public void push(T item) {
         this.head = new Node<>(this.head, item);
     }
