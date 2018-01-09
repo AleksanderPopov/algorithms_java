@@ -3,20 +3,24 @@ package algorithms.sorts;
 import java.util.Arrays;
 
 public class ShellSort {
+
     public static int[] perform(int[] source) {
         int[] result = Arrays.copyOf(source, source.length);
-
-        for (int gap = result.length / 2; gap > 0; gap /= 2) { // gap count
-            for (int i = gap; i < result.length; i++) {
-                int tmp = result[i]; // closer to end value
-                int j;
-                for (j = i; j >= gap && result[j - gap] > tmp; j -= gap) {
-                    result[j] = result[j - gap];
-                }
-                result[j] = tmp;
-            }
-        }
-
+        sort(result);
         return result;
     }
+
+    private static void sort(int[] source) {
+        for (int gap = source.length / 2; gap > 0; gap /= 2) { // gap count
+            for (int i = gap; i < source.length; i++) {
+                int tmp = source[i]; // closer to end value
+                int j;
+                for (j = i; j >= gap && source[j - gap] > tmp; j -= gap) {
+                    source[j] = source[j - gap];
+                }
+                source[j] = tmp;
+            }
+        }
+    }
+
 }

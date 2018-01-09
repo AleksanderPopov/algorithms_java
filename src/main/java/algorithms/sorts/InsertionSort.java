@@ -3,41 +3,45 @@ package algorithms.sorts;
 import java.util.Arrays;
 
 public class InsertionSort {
-    public static int[] perform(int[] source) {
+
+    public static int[] performRecursive(int[] source) {
         int[] result = Arrays.copyOf(source, source.length);
-
-        for (int currentUnsortedIndex = 1; currentUnsortedIndex < result.length; currentUnsortedIndex++) {
-            int currentUnsorted = result[currentUnsortedIndex];
-
-            for (int currentSortedIndex = currentUnsortedIndex - 1; currentSortedIndex >= 0; currentSortedIndex--) {
-                if (currentUnsorted >= result[currentSortedIndex]) {
-                    shiftLeft(result, currentUnsortedIndex + 1);
-                    shiftRight(result, currentSortedIndex + 1);
-                    result[currentSortedIndex + 1] = currentUnsorted;
-                    break;
-                } else if (currentSortedIndex == 0) {
-                    shiftLeft(result, currentUnsortedIndex + 1);
-                    shiftRight(result, currentSortedIndex);
-                    result[currentSortedIndex] = currentUnsorted;
-                    break;
-                }
-            }
-        }
-
+        sortRecursive(result, 1);
         return result;
     }
 
-    private static void shiftLeft(int[] source, int from) {
-        for (; from < source.length; from++) {
-            if (from - 1 >= 0) {
-                source[from - 1] = source[from];
-            }
+    private static void sortRecursive(int[] source, int currentUnsortedIndex) {
+        if (currentUnsortedIndex == source.length) return;;
+
+        int currentUnsorted = source[currentUnsortedIndex];
+
+        int i;
+
+        for (i = currentUnsortedIndex; i > 0 && currentUnsorted < source[i - 1]; i--) {
+            source[i] = source[i - 1];
         }
+
+        source[i] = currentUnsorted;
+
+        sortRecursive(source, currentUnsortedIndex + 1);
     }
 
-    private static void shiftRight(int[] source, int from) {
-        for (int i = source.length - 1; from <= i && i > 0; i--) {
-            source[i] = source[i - 1];
+    public static int[] perform(int[] source) {
+        int[] result = Arrays.copyOf(source, source.length);
+        sort(result);
+        return result;
+    }
+
+    private static void sort(int[] source) {
+        for (int currentUnsortedIndex = 1; currentUnsortedIndex < source.length; currentUnsortedIndex++) {
+            int currentUnsorted = source[currentUnsortedIndex];
+
+            int i;
+
+            for (i = currentUnsortedIndex; i > 0 && currentUnsorted < source[i - 1]; i--) {
+                source[i] = source[i - 1];
+            }
+            source[i] = currentUnsorted;
         }
     }
 

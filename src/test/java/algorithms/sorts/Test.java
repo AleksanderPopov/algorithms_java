@@ -1,7 +1,5 @@
 package algorithms.sorts;
 
-import algorithms.sorts.*;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +28,9 @@ public class Test {
         int[] insertionSorted = InsertionSort.perform(array);
         print(insertionSorted, "insertion", sorted);
 
+        int[] insertionRecursiveSorted = InsertionSort.performRecursive(array);
+        print(insertionRecursiveSorted, "insertion recursive", sorted);
+
         int[] shellSorted = ShellSort.perform(array);
         print(shellSorted, "shell", sorted);
 
@@ -39,14 +40,26 @@ public class Test {
         int[] countSorted = CountingSort.perform(array, 1000, 9999);
         print(countSorted, "count", sorted);
 
-        int[] radixSorted = RadixSort.perform(array);
+        int[] radixSorted = RadixSort.perform(array, 10_000);
         print(radixSorted, "radix", sorted);
 
-        QuickSort.perform(array);
-        print(array, "quick", sorted);
+        String[] radixStringSorted = RadixSort.performOnString(new String[] {"bcdef", "dbaqc", "abcde", "omadd", "bbbbb"}, 'z');
+        printObj(radixStringSorted, "radix string", new String[] {"abcde", "bbbbb", "bcdef", "dbaqc", "omadd"});
+
+        int[] quickSorted = QuickSort.perform(array);
+        print(quickSorted, "quick", sorted);
     }
 
     private void print(int[] array, String name, int[] sorted) {
+        System.out.println(String.format(
+                "%s sort %s %s",
+                Arrays.toString(array),
+                name,
+                Arrays.equals(array, sorted)
+        ));
+    }
+
+    private void printObj(Object[] array, String name, Object[] sorted) {
         System.out.println(String.format(
                 "%s sort %s %s",
                 Arrays.toString(array),

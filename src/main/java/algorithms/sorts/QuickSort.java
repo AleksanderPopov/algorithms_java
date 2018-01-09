@@ -1,12 +1,16 @@
 package algorithms.sorts;
 
+import java.util.Arrays;
+
 public class QuickSort {
 
-    public static void perform(int[] source) {
-        perform(source, 0, source.length);
+    public static int[] perform(int[] source) {
+        int[] result = Arrays.copyOf(source, source.length);
+        sort(result, 0, result.length);
+        return result;
     }
 
-    private static void perform(int[] source, int start, int end) {
+    private static void sort(int[] source, int start, int end) {
         if (end - start < 2) return;
 
         int pivotIndex = start;
@@ -26,7 +30,7 @@ public class QuickSort {
         source[i] = pivot;
 
 
-        perform(source, start, i);
-        perform(source, i + 1, end);
+        sort(source, start, i);
+        sort(source, i + 1, end);
     }
 }

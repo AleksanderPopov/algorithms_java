@@ -6,16 +6,20 @@ public class SelectionSort {
 
     public static int[] perform(int[] source) {
         int[] result = Arrays.copyOf(source, source.length);
-        for (int unsortedPartitionIndex = result.length - 1; unsortedPartitionIndex > 0; unsortedPartitionIndex--) {
+        sort(result);
+        return result;
+    }
+
+    private static void sort(int[] source) {
+        for (int unsortedPartitionIndex = source.length - 1; unsortedPartitionIndex > 0; unsortedPartitionIndex--) {
             int tmp = 0;
             for (int i = 0; i <= unsortedPartitionIndex; i++) {
-                if (result[i] > result[tmp]) {
+                if (source[i] > source[tmp]) {
                     tmp = i;
                 }
             }
-            swap(result, tmp, unsortedPartitionIndex);
+            swap(source, tmp, unsortedPartitionIndex);
         }
-        return result;
     }
 
     private static void swap(int[] arr, int findex, int sindex) {
