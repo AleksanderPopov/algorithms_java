@@ -16,21 +16,21 @@ public class QuickSort {
         int pivotIndex = start;
         int pivot = source[pivotIndex];
 
-        int i = start;
-        int j = end;
+        int s = start;
+        int e = end;
 
 
-        while (i < j) {
-            while (i < j && source[--j] >= pivot);
-            if (source[j] < pivot) source[i] = source[j];
+        while (s < e) {
+            while (s < e && source[--e] >= pivot);
+            if (source[e] < pivot) source[s] = source[e];
 
-            while (i < j && source[++i] <= pivot);
-            if (source[i] > pivot) source[j] = source[i];
+            while (s < e && source[++s] <= pivot);
+            if (source[s] > pivot) source[e] = source[s];
         }
-        source[i] = pivot;
+        source[s] = pivot;
 
 
-        sort(source, start, i);
-        sort(source, i + 1, end);
+        sort(source, start, s);
+        sort(source, s + 1, end);
     }
 }

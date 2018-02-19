@@ -28,23 +28,30 @@ public class Heap<V extends Comparable<? super V>> {
         }
     }
 
-    public void remove(V value) {
-        if (!this.contains(value)) return;
+    public V remove() {
+        return this.remove(this.peek());
+    }
+
+    public V remove(V value) {
+        if (!this.contains(value)) return null;
         for (int i = 0; i < this.data.length; i++) {
             if (this.data[i] == null) break;
             if (this.data[i].value.equals(value)) {
                 if (i + 1 >= this.data.length || this.data[i + 1] == null) {
+                    V tmp = this.data[i].value;
                     this.data[i] = null;
                     pointer--;
-                    return;
+                    return tmp;
                 }
+                V tmp = this.data[i].value;
                 this.data[i] = this.data[pointer - 1];
                 this.data[pointer - 1] = null;
                 pointer--;
                 this.heapify(i);
-                return;
+                return tmp;
             }
         }
+        return null;
     }
 
     public boolean contains(V value) {

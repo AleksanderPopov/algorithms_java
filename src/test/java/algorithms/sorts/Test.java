@@ -46,6 +46,9 @@ public class Test {
         String[] radixStringSorted = RadixSort.performOnString(new String[] {"bcdef", "dbaqc", "abcde", "omadd", "bbbbb"}, 'z');
         printObj(radixStringSorted, "radix string", new String[] {"abcde", "bbbbb", "bcdef", "dbaqc", "omadd"});
 
+        int[] heapSorted = HeapSort.perform(array);
+        print(heapSorted, "heap", sorted);
+
         int[] quickSorted = QuickSort.perform(array);
         print(quickSorted, "quick", sorted);
     }
