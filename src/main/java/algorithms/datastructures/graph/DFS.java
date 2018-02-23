@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 
 public class DFS {
     public static void perform(Graph graph, int v) {
-        Pair<Boolean, Integer>[] table = new Pair[graph.V()];
+        Pair[] table = new Pair[graph.V()];
         perform(graph, table, null, v);
 
         String tableToString = IntStream.range(0, table.length)
@@ -13,12 +13,14 @@ public class DFS {
                 .reduce((f, s) -> String.format("%s\n%s", f, s))
                 .orElseThrow(RuntimeException::new);
 
+        System.out.println("------");
         System.out.println("DFS:");
         System.out.println(tableToString);
+        System.out.println("------");
     }
 
-    private static void perform(Graph graph, Pair<Boolean, Integer>[] table, Integer fv, Integer v) {
-        table[v] = new Pair<>(true, fv);
+    private static void perform(Graph graph, Pair[] table, Integer fv, Integer v) {
+        table[v] = new Pair(true, fv);
         graph.adj(v).forEach(adj -> {
             if (table[adj] == null || !table[adj].v1) {
                 perform(graph, table, v, adj);
@@ -26,11 +28,11 @@ public class DFS {
         });
     }
 
-    static class Pair<K, V> {
-        public final K v1;
-        public final V v2;
+    static class Pair {
+        final Boolean v1;
+        final Integer v2;
 
-        public Pair(K v1, V v2) {
+        Pair(Boolean v1, Integer v2) {
             this.v1 = v1;
             this.v2 = v2;
         }
