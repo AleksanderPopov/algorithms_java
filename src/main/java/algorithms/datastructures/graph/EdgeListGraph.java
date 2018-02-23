@@ -8,7 +8,7 @@ import static java.util.stream.Collectors.toList;
 
 public class EdgeListGraph extends AbstractGraph {
 
-    private List<Pair<Integer, Integer>> edges = new ArrayList<>();
+    private List<Pair> edges = new ArrayList<>();
 
     public EdgeListGraph(GraphType graphType, int size) {
         super(graphType, size);
@@ -16,9 +16,9 @@ public class EdgeListGraph extends AbstractGraph {
 
     @Override
     public void addEdge(int v1, int v2) {
-        this.edges.add(new Pair<>(v1, v2));
+        this.edges.add(new Pair(v1, v2));
         if (this.graphType == GraphType.UNDIRECTED) {
-            this.edges.add(new Pair<>(v2, v1));
+            this.edges.add(new Pair(v2, v1));
         }
     }
 
@@ -27,7 +27,9 @@ public class EdgeListGraph extends AbstractGraph {
         return this.edges
                 .stream()
                 .filter(pair -> pair.v2 == v)
-                .map(pair -> v != pair.v1 ? pair.v1 : pair.v2)
+                .map(pair -> pair.v1)
+                .sorted()
+                .distinct()
                 .collect(toList());
     }
 
@@ -36,11 +38,11 @@ public class EdgeListGraph extends AbstractGraph {
         return this.edges.size();
     }
 
-    static class Pair<K, V> {
-        public final K v1;
-        public final V v2;
+    static class Pair {
+        final Integer v1;
+        final Integer v2;
 
-        public Pair(K v1, V v2) {
+        Pair(Integer v1, Integer v2) {
             this.v1 = v1;
             this.v2 = v2;
         }

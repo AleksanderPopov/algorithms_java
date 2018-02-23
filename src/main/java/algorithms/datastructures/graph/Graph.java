@@ -11,4 +11,6 @@ public interface Graph {
     int V();
 
     int E();
+
+    GraphType type();
 }

@@ -32,7 +32,7 @@ public class MatrixGraph extends AbstractGraph {
     public List<Integer> adj(int v) {
         return IntStream.range(0, this.matrix.length)
                 .boxed()
-                .filter(i -> this.matrix[v][i] == 1)
+                .filter(i -> this.matrix[i][v] == 1)
                 .collect(toList());
     }
 
