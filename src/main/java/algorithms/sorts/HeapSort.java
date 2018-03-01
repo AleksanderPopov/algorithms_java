@@ -1,6 +1,6 @@
 package algorithms.sorts;
 
-import algorithms.datastructures.heaps.Heap;
+import algorithms.datastructures.heaps.MaxHeap;
 
 import java.util.Arrays;
 
@@ -13,10 +13,10 @@ public class HeapSort {
     }
 
     private static void sort(int[] source) {
-        Heap<Integer> heap = new Heap<>();
-        for(int i : source) heap.insert(i);
+        MaxHeap<Integer> maxHeap = new MaxHeap<>();
+        for(int i : source) maxHeap.insert(i);
         for (int i = source.length - 1; i >= 0; i--) {
-            source[i] = heap.remove();
+            source[i] = maxHeap.remove();
         }
     }
 
